@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patrick Odilon Ogue — Data Analyst (IHK) · Data-Process-Expert (IHK)</title>
+<meta name="description" content="Patrick Odilon Ogue — Data Analyst (IHK), Data-Process-Expert (IHK) und Ingenieur (Chemie und Umwelt) in Leipzig. Python, SQL, Power BI, Tableau.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=Inter:wght@350;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0D1B1E;
+  --ink-2:#2A3B3F;
+  --muted:#5D6D70;
+  --rule:#D9E0DE;
+  --paper:#FCFCFA;
+  --surface:#F1F4F2;
+  --accent:#0E6B5E;
+  --accent-ink:#0A4F46;
+  --accent-wash:#DCEAE5;
+  --on-accent:#FCFCFA;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#E9EDEA; --ink-2:#C2CBC7; --muted:#8E9B97; --rule:#2A3A3C;
+    --paper:#0C1517; --surface:#131F21; --accent:#5FBFA8; --accent-ink:#8ED6C3;
+    --accent-wash:#16302C; --on-accent:#08100F;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E9EDEA; --ink-2:#C2CBC7; --muted:#8E9B97; --rule:#2A3A3C;
+  --paper:#0C1517; --surface:#131F21; --accent:#5FBFA8; --accent-ink:#8ED6C3;
+  --accent-wash:#16302C; --on-accent:#08100F;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16.5px; font-weight:350; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:inherit}
+.wrap{max-width:60rem;margin:0 auto;padding:0 clamp(1.15rem,4vw,2.5rem)}
+
+h1,h2,h3{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.012em;margin:0}
+h2{font-size:clamp(1.5rem,3.1vw,2rem);line-height:1.2}
+h3{font-size:1.06rem;font-weight:500;letter-spacing:0}
+
+/* ---------- top bar ---------- */
+.top{
+  position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);
+}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:56px}
+.mark{font-family:"Newsreader",Georgia,serif;font-size:1.02rem;letter-spacing:.01em;text-decoration:none}
+.lang{display:flex;gap:2px;background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:3px}
+.lang button{
+  font:inherit;font-size:.78rem;font-weight:500;letter-spacing:.04em;
+  border:0;background:transparent;color:var(--muted);
+  padding:.26rem .72rem;border-radius:999px;cursor:pointer;
+}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.lang button:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(3rem,9vw,5.5rem) 0 clamp(2rem,5vw,3rem)}
+.hero h1{font-size:clamp(2.5rem,7.4vw,4.4rem);line-height:1.02;letter-spacing:-.028em;font-weight:400}
+.hero .role{
+  margin:.9rem 0 0;font-size:clamp(1.02rem,2.3vw,1.24rem);color:var(--ink-2);
+  font-family:"Newsreader",Georgia,serif;font-style:italic;font-weight:300;
+}
+.hero .pitch{margin:1.5rem 0 0;max-width:34em;color:var(--ink-2)}
+.hero .place{margin:.65rem 0 0;font-size:.9rem;color:var(--muted)}
+
+/* signature element: career scale */
+.scale{margin-top:clamp(2.4rem,6vw,3.4rem);overflow-x:auto;overflow-y:hidden;padding-bottom:.35rem}
+.scale svg{width:100%;min-width:660px;height:auto;display:block;overflow:visible}
+.tick{stroke:var(--rule);stroke-width:1}
+.tick-major{stroke:var(--muted);stroke-width:1}
+.axis{stroke:var(--ink);stroke-width:1.5}
+.yr{fill:var(--muted);font-family:"Inter",sans-serif;font-size:9.5px;letter-spacing:.03em}
+.band{fill:var(--accent-wash)}
+.band-lab{fill:var(--accent);opacity:.24}
+.pin{fill:var(--accent)}
+.pin-lbl{fill:var(--ink-2);font-family:"Inter",sans-serif;font-size:10px;font-weight:500}
+.scale-key{
+  display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;margin-top:1.1rem;
+  font-size:.79rem;color:var(--muted)
+}
+.scale-key span{display:inline-flex;align-items:center;gap:.45rem}
+.swatch{width:14px;height:8px;border-radius:2px;flex:none}
+
+.links{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:clamp(2rem,5vw,2.8rem)}
+.btn{
+  display:inline-block;text-decoration:none;font-size:.88rem;font-weight:500;letter-spacing:.005em;
+  padding:.62rem 1.15rem;border-radius:2px;border:1px solid var(--rule);color:var(--ink);
+  transition:border-color .18s,background .18s;
+}
+.btn:hover{border-color:var(--accent);background:var(--accent-wash)}
+.btn-solid{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-solid:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:var(--on-accent)}
+
+/* ---------- sections ---------- */
+section{padding:clamp(2.6rem,6.5vw,4.2rem) 0;border-top:1px solid var(--rule)}
+.sec-head{margin-bottom:clamp(1.6rem,3.5vw,2.2rem);max-width:38em}
+.sec-head p{margin:.7rem 0 0;color:var(--muted);font-size:.95rem}
+
+/* focus areas */
+.focus{display:grid;gap:clamp(1.4rem,3vw,2rem);grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.focus article h3{margin-bottom:.4rem}
+.focus article p{margin:0;font-size:.93rem;color:var(--muted)}
+.focus article{border-top:2px solid var(--accent);padding-top:.85rem}
+
+/* experience */
+.xp{display:grid;gap:0}
+.xp-row{
+  display:grid;grid-template-columns:8.5rem 1fr;gap:clamp(.9rem,3vw,2rem);
+  padding:1.35rem 0;border-bottom:1px solid var(--rule);
+}
+.xp-row:first-child{border-top:1px solid var(--rule)}
+.xp-when{font-size:.84rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:.15rem}
+.xp-what h3{margin-bottom:.15rem}
+.xp-org{font-size:.9rem;color:var(--accent-ink);margin:0 0 .5rem}
+.xp-what ul{margin:0;padding-left:1.05rem;font-size:.93rem;color:var(--muted)}
+.xp-what li{margin:.22rem 0}
+.xp-what li::marker{color:var(--accent)}
+
+/* projects */
+.proj{display:grid;gap:clamp(1.2rem,3vw,1.6rem)}
+.proj article{background:var(--surface);padding:clamp(1.3rem,3.2vw,2rem);border-radius:3px}
+.proj .idx{font-family:"Newsreader",serif;font-size:.95rem;color:var(--accent);margin:0 0 .5rem}
+.proj h3{font-size:1.24rem;font-family:"Newsreader",serif;font-weight:500;margin-bottom:.55rem}
+.proj p{margin:0 0 .9rem;font-size:.95rem;color:var(--ink-2);max-width:46em}
+.proj ul{margin:0 0 1.1rem;padding-left:1.05rem;font-size:.9rem;color:var(--muted)}
+.proj li{margin:.2rem 0}
+.proj li::marker{color:var(--accent)}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.1rem}
+.chip{
+  font-size:.76rem;letter-spacing:.015em;padding:.22rem .6rem;border-radius:2px;
+  background:var(--accent-wash);color:var(--accent-ink)
+}
+.repo{font-size:.85rem;color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px}
+.repo:hover{color:var(--accent)}
+
+/* skills */
+.skills{display:grid;gap:1.3rem}
+.skill-row{display:grid;grid-template-columns:11rem 1fr;gap:clamp(.7rem,2.5vw,1.6rem);align-items:start}
+.skill-row h3{font-size:.93rem;color:var(--ink);padding-top:.12rem}
+.skill-row div{display:flex;flex-wrap:wrap;gap:.38rem}
+
+/* education */
+.edu{display:grid;gap:0}
+.edu-row{display:grid;grid-template-columns:8.5rem 1fr;gap:clamp(.9rem,3vw,2rem);padding:1.05rem 0;border-bottom:1px solid var(--rule)}
+.edu-row:first-child{border-top:1px solid var(--rule)}
+.edu-row .when{font-size:.84rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:.1rem}
+.edu-row h3{margin-bottom:.15rem}
+.edu-row p{margin:0;font-size:.89rem;color:var(--muted)}
+.honour{color:var(--accent-ink)}
+
+/* contact */
+.contact{background:var(--surface);border-radius:3px;padding:clamp(1.6rem,4vw,2.6rem)}
+.contact h2{margin-bottom:.6rem}
+.contact p{margin:0 0 1.5rem;color:var(--ink-2);max-width:38em}
+.rows{display:grid;gap:.1rem}
+.crow{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--rule);font-size:.93rem}
+.crow:last-child{border-bottom:0}
+.crow dt{color:var(--muted)}
+.crow dd{margin:0}
+.crow a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.crow a:hover{border-color:var(--accent);color:var(--accent)}
+
+footer{padding:2.2rem 0 3rem;border-top:1px solid var(--rule);font-size:.82rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between}
+
+@media (max-width:640px){
+  .xp-row,.edu-row{grid-template-columns:1fr;gap:.45rem}
+  .skill-row{grid-template-columns:1fr;gap:.5rem}
+  .crow{grid-template-columns:1fr;gap:.1rem}
+  .crow dt{font-size:.8rem}
+}
+
+/* one orchestrated reveal, hero only */
+@media (prefers-reduced-motion:no-preference){
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .9s .25s ease-out forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .fade{opacity:0;animation:fade .7s .5s ease-out forwards}
+  @keyframes fade{to{opacity:1}}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top">Patrick&nbsp;Odilon&nbsp;Ogue</a>
+    <div class="lang" role="group" aria-label="Sprache / Langue">
+      <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<div class="hero wrap">
+  <h1 data-de="Patrick Odilon Ogue" data-fr="Patrick Odilon Ogue">Patrick Odilon Ogue</h1>
+  <p class="role"
+     data-de="Data Analyst (IHK), Data-Process-Expert (IHK) und Ingenieur — aus dem Labor in die Daten."
+     data-fr="Data Analyst (IHK), Data-Process-Expert (IHK) et ingénieur — du laboratoire aux données.">Data Analyst (IHK), Data-Process-Expert (IHK) und Ingenieur — aus dem Labor in die Daten.</p>
+  <p class="pitch"
+     data-de="Als Ingenieur habe ich über sechs Jahre mit Messwerten, Grenzwerten und Prüfprotokollen gearbeitet. Heute mache ich dasselbe mit Python, SQL, Power BI und Tableau: Rohdaten prüfen, bereinigen und in Kennzahlen übersetzen, auf die sich jemand verlassen kann — in Industrie, Labor und Forschung."
+     data-fr="En tant qu'ingénieur, j'ai travaillé plus de six ans avec des mesures, des valeurs limites et des protocoles d'essai. Aujourd'hui je fais la même chose avec Python, SQL, Power BI et Tableau : vérifier des données brutes, les nettoyer et les traduire en indicateurs fiables — pour l'industrie, le laboratoire et la recherche.">Als Ingenieur habe ich über sechs Jahre mit Messwerten, Grenzwerten und Prüfprotokollen gearbeitet. Heute mache ich dasselbe mit Python, SQL, Power BI und Tableau: Rohdaten prüfen, bereinigen und in Kennzahlen übersetzen, auf die sich jemand verlassen kann — in Industrie, Labor und Forschung.</p>
+  <p class="place"
+     data-de="Leipzig, Deutschland — vor Ort, hybrid oder remote"
+     data-fr="Leipzig, Allemagne — sur site, hybride ou à distance">Leipzig, Deutschland — vor Ort, hybrid oder remote</p>
+
+  <div class="scale" aria-hidden="true">
+    <svg viewBox="0 0 900 118" role="img">
+      <g id="scale-g"></g>
+    </svg>
+  </div>
+  <div class="scale-key fade">
+    <span><i class="swatch" style="background:var(--accent);opacity:.3"></i>
+      <b style="font-weight:500"
+         data-de="Analytik, Labor und Qualitätskontrolle"
+         data-fr="Analyse, laboratoire et contrôle qualité">Analytik, Labor und Qualitätskontrolle</b></span>
+    <span><i class="swatch" style="background:var(--accent)"></i>
+      <b style="font-weight:500"
+         data-de="Daten, Reporting und Prozesse"
+         data-fr="Données, reporting et processus">Daten, Reporting und Prozesse</b></span>
+  </div>
+
+  <nav class="links">
+    <a class="btn btn-solid" href="mailto:patrick.ogue@proton.me"
+       data-de="Schreiben Sie mir" data-fr="Écrivez-moi">Schreiben Sie mir</a>
+    <a class="btn" href="https://www.linkedin.com/in/odilon-patrick-ogue/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/PatrickOdilonOgue" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="https://public.tableau.com/app/profile/patrick.odilon.ogue/vizzes" target="_blank" rel="noopener">Tableau Public</a>
+  </nav>
+</div>
+
+<section class="wrap">
+  <div class="sec-head">
+    <h2 data-de="Woran ich arbeite" data-fr="Ce sur quoi je travaille">Woran ich arbeite</h2>
+  </div>
+  <div class="focus">
+    <article>
+      <h3 data-de="Analyse und Reporting" data-fr="Analyse et reporting">Analyse und Reporting</h3>
+      <p data-de="Datensätze zusammenführen, bereinigen und auswerten — mit Python und SQL, bis die Zahlen belastbar sind und sich wiederholen lassen."
+         data-fr="Rassembler, nettoyer et exploiter des jeux de données avec Python et SQL, jusqu'à obtenir des chiffres fiables et reproductibles.">Datensätze zusammenführen, bereinigen und auswerten — mit Python und SQL, bis die Zahlen belastbar sind und sich wiederholen lassen.</p>
+    </article>
+    <article>
+      <h3 data-de="Dashboards, die jemand nutzt" data-fr="Des tableaux de bord utiles">Dashboards, die jemand nutzt</h3>
+      <p data-de="Tableau und Power BI für Kennzahlen, die eine Entscheidung tragen — nicht für Diagramme, die nur gut aussehen."
+         data-fr="Tableau et Power BI pour des indicateurs qui portent une décision, pas pour des graphiques qui font seulement joli.">Tableau und Power BI für Kennzahlen, die eine Entscheidung tragen — nicht für Diagramme, die nur gut aussehen.</p>
+    </article>
+    <article>
+      <h3 data-de="Qualität, Datenschutz und Forschung" data-fr="Qualité, protection des données et recherche">Qualität, Datenschutz und Forschung</h3>
+      <p data-de="IHK-Zertifikate in Prozess- und Qualitätsmanagement, Datenschutz und agilem Projektmanagement — plus Jahre in GLP-, GMP- und ISO-Umgebungen und ein Masterforschungsdiplom in Chemie und Umwelt."
+         data-fr="Certificats IHK en gestion des processus, management de la qualité, protection des données et gestion de projet agile — des années en environnement BPL, BPF et ISO et un master recherche en chimie et environnement.">IHK-Zertifikate in Prozess- und Qualitätsmanagement, Datenschutz und agilem Projektmanagement — plus Jahre in GLP-, GMP- und ISO-Umgebungen und ein Masterforschungsdiplom in Chemie und Umwelt.</p>
+    </article>
+  </div>
+</section>
+
+<section class="wrap" id="qualifikationen">
+  <div class="sec-head">
+    <h2 data-de="Qualifikationen und Anerkennung" data-fr="Qualifications et reconnaissance">Qualifikationen und Anerkennung</h2>
+  </div>
+  <div class="focus">
+    <article>
+      <h3 data-de="Data Analyst (IHK)" data-fr="Data Analyst (IHK)">Data Analyst (IHK)</h3>
+      <p data-de="IHK Akademie München und Oberbayern — Lehrgang erfolgreich abgeschlossen am 01.10.2026." data-fr="IHK Akademie München und Oberbayern — formation achevée avec succès le 01.10.2026.">IHK Akademie München und Oberbayern — Lehrgang erfolgreich abgeschlossen am 01.10.2026.</p>
+    </article>
+    <article>
+      <h3 data-de="Data-Process-Expert (IHK)" data-fr="Data-Process-Expert (IHK)">Data-Process-Expert (IHK)</h3>
+      <p data-de="IHK-Projektgesellschaft Ostbrandenburg — 200 Unterrichtsstunden, vier Bausteine, Abschluss am 27.05.2026." data-fr="IHK-Projektgesellschaft Ostbrandenburg — 200 heures, quatre modules, certificat du 27.05.2026.">IHK-Projektgesellschaft Ostbrandenburg — 200 Unterrichtsstunden, vier Bausteine, Abschluss am 27.05.2026.</p>
+    </article>
+    <article>
+      <h3 data-de="Ingenieur — Ingenieurkammer Sachsen" data-fr="Ingenieur — Ingenieurkammer Sachsen">Ingenieur — Ingenieurkammer Sachsen</h3>
+      <p data-de="Eintragung zur Führung der Berufsbezeichnung „Ingenieur“ nach § 34 SächsIngG (Bescheid vom 17.01.2020)." data-fr="Inscription avec le droit de porter le titre d'« Ingenieur » selon le § 34 SächsIngG (décision du 17.01.2020).">Eintragung zur Führung der Berufsbezeichnung „Ingenieur“ nach § 34 SächsIngG (Bescheid vom 17.01.2020).</p>
+    </article>
+    <article>
+      <h3 data-de="Data Science Fundamentals" data-fr="Data Science Fundamentals">Data Science Fundamentals</h3>
+      <p data-de="Masterschool, Berlin — 1.440 Unterrichtsstunden; Bildungsträger mit AZAV-Zulassung (18.04.2025)." data-fr="Masterschool, Berlin — 1 440 heures ; organisme de formation agréé AZAV (18.04.2025).">Masterschool, Berlin — 1.440 Unterrichtsstunden; Bildungsträger mit AZAV-Zulassung (18.04.2025).</p>
+    </article>
+    <article>
+      <h3 data-de="Masterforschungsdiplom" data-fr="Master recherche">Masterforschungsdiplom</h3>
+      <p data-de="Industrieingenieurwesen, Spezialisierung Chemie und Umwelt, Prädikat „sehr ehrenhaft“ (IRGIB-AFRIKA Universität, 2012)." data-fr="Génie industriel, spécialité chimie et environnement, mention « très honorable » (Université IRGIB-AFRIKA, 2012).">Industrieingenieurwesen, Spezialisierung Chemie und Umwelt, Prädikat „sehr ehrenhaft“ (IRGIB-AFRIKA Universität, 2012).</p>
+    </article>
+    </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <h2 data-de="Beruflicher Werdegang" data-fr="Parcours professionnel">Beruflicher Werdegang</h2>
+  </div>
+  <div class="xp">
+
+    <div class="xp-row">
+      <div class="xp-when">09/2025 – 11/2025</div>
+      <div class="xp-what">
+        <h3 data-de="Data Analyst (Praktikum, 320 Stunden)" data-fr="Data Analyst (stage, 320 heures)">Data Analyst (Praktikum, 320 Stunden)</h3>
+        <p class="xp-org" data-de="Webeet.io — Remote" data-fr="Webeet.io — télétravail">Webeet.io — Remote</p>
+        <ul>
+          <li data-de="Daten für Reporting- und Analysezwecke analysiert, bereinigt und strukturiert aufbereitet."
+              data-fr="Analyse, nettoyage et structuration de données pour le reporting et l'analyse.">Daten für Reporting- und Analysezwecke analysiert, bereinigt und strukturiert aufbereitet.</li>
+          <li data-de="Datenbasierte Auswertungen erstellt; Unterstützung bei Dashboard- und Reportingaufgaben."
+              data-fr="Production d'analyses chiffrées ; appui aux tâches de tableaux de bord et de reporting.">Datenbasierte Auswertungen erstellt; Unterstützung bei Dashboard- und Reportingaufgaben.</li>
+          <li data-de="Analyseschritte strukturiert dokumentiert, im Remote-Arbeitsumfeld."
+              data-fr="Documentation structurée des étapes d'analyse en télétravail.">Analyseschritte strukturiert dokumentiert, im Remote-Arbeitsumfeld.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-row">
+      <div class="xp-when" data-de="seit 2024" data-fr="depuis 2024">seit 2024</div>
+      <div class="xp-what">
+        <h3 data-de="Junior Data Analyst — eigene Datenprojekte" data-fr="Junior Data Analyst — projets de données personnels">Junior Data Analyst — eigene Datenprojekte</h3>
+        <p class="xp-org" data-de="Freiberuflich / Portfolio" data-fr="Activité indépendante / portfolio">Freiberuflich / Portfolio</p>
+        <ul>
+          <li data-de="Vollständige Analyseprojekte von der Datenbeschaffung bis zum Reporting."
+              data-fr="Projets d'analyse complets, de la collecte des données au reporting.">Vollständige Analyseprojekte von der Datenbeschaffung bis zum Reporting.</li>
+          <li data-de="Interaktive Tableau-Dashboards, veröffentlicht auf Tableau Public."
+              data-fr="Tableaux de bord Tableau interactifs, publiés sur Tableau Public.">Interaktive Tableau-Dashboards, veröffentlicht auf Tableau Public.</li>
+          <li data-de="Statistik, ETL-Logiken und Machine-Learning-Grundlagen an praxisnahen Datensätzen."
+              data-fr="Statistiques, logiques ETL et bases du machine learning sur des jeux de données concrets.">Statistik, ETL-Logiken und Machine-Learning-Grundlagen an praxisnahen Datensätzen.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-row">
+      <div class="xp-when">05/2020 – 03/2023</div>
+      <div class="xp-what">
+        <h3 data-de="Mitarbeiter Verwaltung und Datenpflege" data-fr="Chargé d'administration et de gestion des données">Mitarbeiter Verwaltung und Datenpflege</h3>
+        <p class="xp-org">Johanniter-Unfall-Hilfe e. V., Leipzig</p>
+        <ul>
+          <li data-de="Sensible Personendaten mit hoher Genauigkeit und Datenschutzorientierung gepflegt."
+              data-fr="Gestion de données personnelles sensibles avec une grande précision et le souci de la protection des données.">Sensible Personendaten mit hoher Genauigkeit und Datenschutzorientierung gepflegt.</li>
+          <li data-de="Dokumentation, interne Kommunikation und organisatorische Unterstützung im Verwaltungsumfeld."
+              data-fr="Documentation, communication interne et appui organisationnel dans un environnement administratif.">Dokumentation, interne Kommunikation und organisatorische Unterstützung im Verwaltungsumfeld.</li>
+          <li data-de="Strukturierte Bearbeitung von Vorgängen und Unterstützung teamübergreifender Abläufe."
+              data-fr="Traitement structuré des dossiers et soutien aux processus transversaux entre équipes.">Strukturierte Bearbeitung von Vorgängen und Unterstützung teamübergreifender Abläufe.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-row">
+      <div class="xp-when">07/2015 – 03/2017</div>
+      <div class="xp-what">
+        <h3 data-de="Technischer Ingenieur — Wasser- und Umweltanalytik" data-fr="Ingénieur technique — analyse des eaux et de l'environnement">Technischer Ingenieur — Wasser- und Umweltanalytik</h3>
+        <p class="xp-org" data-de="Staatliches Labor CECOQDA, N'Djamena, Tschad" data-fr="Laboratoire d'État CECOQDA, N'Djaména, Tchad">Staatliches Labor CECOQDA, N'Djamena, Tschad</p>
+        <ul>
+          <li data-de="Analytische Untersuchungen im Bereich Wasser- und Umweltanalytik durchgeführt und überwacht."
+              data-fr="Réalisation et supervision d'analyses dans le domaine de l'eau et de l'environnement.">Analytische Untersuchungen im Bereich Wasser- und Umweltanalytik durchgeführt und überwacht.</li>
+          <li data-de="Prüfprotokolle nach ISO-, GLP- und GMP-Standards validiert und aktualisiert."
+              data-fr="Validation et mise à jour de protocoles conformes aux référentiels ISO, BPL et BPF.">Prüfprotokolle nach ISO-, GLP- und GMP-Standards validiert und aktualisiert.</li>
+          <li data-de="Schulung von Mitarbeitenden, Gerätekalibrierung und technische Dokumentation."
+              data-fr="Formation des collaborateurs, étalonnage des instruments et documentation technique.">Schulung von Mitarbeitenden, Gerätekalibrierung und technische Dokumentation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-row">
+      <div class="xp-when">03/2011 – 12/2014</div>
+      <div class="xp-what">
+        <h3 data-de="Qualitätskontrolle und Projektassistenz" data-fr="Contrôle qualité et assistance projet">Qualitätskontrolle und Projektassistenz</h3>
+        <p class="xp-org" data-de="IRGIB-AFRIKA Labor, Cotonou, Benin" data-fr="Laboratoire IRGIB-AFRIKA, Cotonou, Bénin">IRGIB-AFRIKA Labor, Cotonou, Benin</p>
+        <ul>
+          <li data-de="Analytische Prüfungen an Wasser-, Boden- und Kohlenwasserstoffproben."
+              data-fr="Analyses sur échantillons d'eau, de sol et d'hydrocarbures.">Analytische Prüfungen an Wasser-, Boden- und Kohlenwasserstoffproben.</li>
+          <li data-de="Prüfprotokolle, Analyseberichte und technische Dokumentation erstellt."
+              data-fr="Rédaction de protocoles d'essai, rapports d'analyse et documentation technique.">Prüfprotokolle, Analyseberichte und technische Dokumentation erstellt.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-row">
+      <div class="xp-when">2010 – 2011</div>
+      <div class="xp-what">
+        <h3 data-de="Chemielaborant — Qualitätskontrolle" data-fr="Technicien de laboratoire — contrôle qualité">Chemielaborant — Qualitätskontrolle</h3>
+        <p class="xp-org">Stewart InterSea / IRGIB-AFRIKA, Benin</p>
+        <ul>
+          <li data-de="Probenannahme, Probenvorbereitung und Routinekontrollen im Prüflabor."
+              data-fr="Réception, préparation d'échantillons et contrôles de routine en laboratoire d'essai.">Probenannahme, Probenvorbereitung und Routinekontrollen im Prüflabor.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <h2 data-de="Portfolio-Projekte (in Vorbereitung)" data-fr="Projets de portfolio (en préparation)">Portfolio-Projekte (in Vorbereitung)</h2>
+    <p data-de="Beide verbinden das, was ich im Labor gelernt habe, mit dem, was ich heute mit Daten mache. Sie entstehen derzeit; Code und Dokumentation erscheinen auf GitHub, Dashboards auf Tableau Public."
+       data-fr="Les deux relient ce que j'ai appris en laboratoire à ce que je fais aujourd'hui avec les données. Ils sont en cours de réalisation ; le code et la documentation seront publiés sur GitHub, les tableaux de bord sur Tableau Public.">Beide verbinden das, was ich im Labor gelernt habe, mit dem, was ich heute mit Daten mache. Sie entstehen derzeit; Code und Dokumentation erscheinen auf GitHub, Dashboards auf Tableau Public.</p>
+  </div>
+  <div class="proj">
+
+    <article>
+      <p class="idx" data-de="Projekt 1" data-fr="Projet 1">Projekt 1</p>
+      <h3 data-de="Trinkwasserqualität: Analyse und Grenzwert-Compliance"
+          data-fr="Qualité de l'eau potable : analyse et conformité aux valeurs limites">Trinkwasserqualität: Analyse und Grenzwert-Compliance</h3>
+      <p data-de="Eine Analysepipeline für Trinkwasser-Messwerte: Rohdaten einlesen, plausibilisieren, gegen die Grenzwerte der Trinkwasserverordnung und der WHO prüfen und jede Überschreitung nachvollziehbar dokumentieren. Am Ende steht ein Tableau-Dashboard, das zeigt, welcher Parameter wo und wie oft aus dem Rahmen fällt."
+         data-fr="Une chaîne d'analyse pour des mesures d'eau potable : lecture des données brutes, contrôle de plausibilité, comparaison aux valeurs limites de la réglementation allemande et de l'OMS, et documentation traçable de chaque dépassement. Le tout aboutit à un tableau de bord Tableau montrant quel paramètre sort du cadre, où et à quelle fréquence.">Eine Analysepipeline für Trinkwasser-Messwerte: Rohdaten einlesen, plausibilisieren, gegen die Grenzwerte der Trinkwasserverordnung und der WHO prüfen und jede Überschreitung nachvollziehbar dokumentieren. Am Ende steht ein Tableau-Dashboard, das zeigt, welcher Parameter wo und wie oft aus dem Rahmen fällt.</p>
+      <ul>
+        <li data-de="ETL in Python: Einlesen, Einheiten vereinheitlichen, Ausreißer und fehlende Werte behandeln."
+            data-fr="ETL en Python : lecture, harmonisation des unités, traitement des valeurs aberrantes et manquantes.">ETL in Python: Einlesen, Einheiten vereinheitlichen, Ausreißer und fehlende Werte behandeln.</li>
+        <li data-de="Compliance-Logik gegen Parametergrenzwerte, mit Prüfbericht als reproduzierbarem Notebook."
+            data-fr="Logique de conformité face aux valeurs limites, avec rapport d'essai sous forme de notebook reproductible.">Compliance-Logik gegen Parametergrenzwerte, mit Prüfbericht als reproduzierbarem Notebook.</li>
+        <li data-de="SQL-Abfragen für Zeitreihen je Messstelle und Parameter."
+            data-fr="Requêtes SQL sur les séries temporelles par point de mesure et par paramètre.">SQL-Abfragen für Zeitreihen je Messstelle und Parameter.</li>
+        <li data-de="Tableau-Dashboard: Überschreitungsquote, Trend, Rangliste der kritischen Parameter."
+            data-fr="Tableau de bord Tableau : taux de dépassement, tendance, classement des paramètres critiques.">Tableau-Dashboard: Überschreitungsquote, Trend, Rangliste der kritischen Parameter.</li>
+      </ul>
+      <div class="stack"><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">SQL</span><span class="chip">Tableau</span><span class="chip">Jupyter</span></div>
+      <a class="repo" href="https://github.com/PatrickOdilonOgue" target="_blank" rel="noopener">github.com/PatrickOdilonOgue</a>
+    </article>
+
+    <article>
+      <p class="idx" data-de="Projekt 2" data-fr="Projet 2">Projekt 2</p>
+      <h3 data-de="Statistische Prozesslenkung für die Produktionsqualität"
+          data-fr="Maîtrise statistique des procédés en production">Statistische Prozesslenkung für die Produktionsqualität</h3>
+      <p data-de="Klassische SPC, sauber in Python umgesetzt: Regelkarten, Prozessfähigkeitsindizes und Alarmregeln auf Produktionsmesswerten. Das Projekt beantwortet eine Frage, die in jedem Qualitätsmanagement gestellt wird — läuft der Prozess noch, oder driftet er? — und liefert die Antwort als Kennzahl statt als Bauchgefühl."
+         data-fr="De la MSP classique, proprement implémentée en Python : cartes de contrôle, indices de capabilité et règles d'alarme sur des mesures de production. Le projet répond à une question posée dans tout service qualité — le procédé est-il maîtrisé ou dérive-t-il ? — et y répond par un indicateur plutôt que par une intuition.">Klassische SPC, sauber in Python umgesetzt: Regelkarten, Prozessfähigkeitsindizes und Alarmregeln auf Produktionsmesswerten. Das Projekt beantwortet eine Frage, die in jedem Qualitätsmanagement gestellt wird — läuft der Prozess noch, oder driftet er? — und liefert die Antwort als Kennzahl statt als Bauchgefühl.</p>
+      <ul>
+        <li data-de="Regelkarten (X̄-R und Einzelwerte) mit berechneten Eingriffsgrenzen."
+            data-fr="Cartes de contrôle (X̄-R et valeurs individuelles) avec limites calculées.">Regelkarten (X̄-R und Einzelwerte) mit berechneten Eingriffsgrenzen.</li>
+        <li data-de="Prozessfähigkeit Cp und Cpk je Charge und Maschine."
+            data-fr="Capabilité Cp et Cpk par lot et par machine.">Prozessfähigkeit Cp und Cpk je Charge und Maschine.</li>
+        <li data-de="Alarmregeln nach Nelson zur Erkennung von Drift, Trends und Sprüngen."
+            data-fr="Règles de Nelson pour détecter dérives, tendances et ruptures.">Alarmregeln nach Nelson zur Erkennung von Drift, Trends und Sprüngen.</li>
+        <li data-de="Automatisch erzeugter Qualitätsbericht plus Power-BI-Ansicht für das Tagesgeschäft."
+            data-fr="Rapport qualité généré automatiquement et vue Power BI pour le quotidien.">Automatisch erzeugter Qualitätsbericht plus Power-BI-Ansicht für das Tagesgeschäft.</li>
+      </ul>
+      <div class="stack"><span class="chip">Python</span><span class="chip">NumPy</span><span class="chip">scikit-learn</span><span class="chip">Power BI</span><span class="chip">SPC</span></div>
+      <a class="repo" href="https://github.com/PatrickOdilonOgue" target="_blank" rel="noopener">github.com/PatrickOdilonOgue</a>
+    </article>
+
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <h2 data-de="Werkzeuge und Kenntnisse" data-fr="Outils et compétences">Werkzeuge und Kenntnisse</h2>
+  </div>
+  <div class="skills">
+    <div class="skill-row">
+      <h3 data-de="Programmierung" data-fr="Programmation">Programmierung</h3>
+      <div><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">scikit-learn</span><span class="chip">SQL</span><span class="chip">Git / GitHub</span></div>
+    </div>
+    <div class="skill-row">
+      <h3 data-de="Auswertung und BI" data-fr="Analyse et BI">Auswertung und BI</h3>
+      <div><span class="chip">Tableau</span><span class="chip">Power BI</span><span class="chip">Excel</span><span class="chip">Power Query</span><span class="chip" data-de="Data Storytelling" data-fr="Data storytelling">Data Storytelling</span></div>
+    </div>
+    <div class="skill-row">
+      <h3 data-de="Datenprozesse" data-fr="Processus de données">Datenprozesse</h3>
+      <div>
+        <span class="chip" data-de="Datenbereinigung" data-fr="Nettoyage de données">Datenbereinigung</span>
+        <span class="chip" data-de="ETL-Grundlagen" data-fr="Bases de l'ETL">ETL-Grundlagen</span>
+        <span class="chip">EDA</span>
+        <span class="chip" data-de="KPI-Definition" data-fr="Définition de KPI">KPI-Definition</span>
+        <span class="chip" data-de="Reporting-Automatisierung" data-fr="Automatisation du reporting">Reporting-Automatisierung</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <h3 data-de="Qualität und Compliance" data-fr="Qualité et conformité">Qualität und Compliance</h3>
+      <div>
+        <span class="chip" data-de="Qualitätsmanagement" data-fr="Management de la qualité">Qualitätsmanagement</span>
+        <span class="chip" data-de="Prozessmanagement" data-fr="Gestion des processus">Prozessmanagement</span>
+        <span class="chip" data-de="Datenschutz / DSGVO" data-fr="Protection des données / RGPD">Datenschutz / DSGVO</span>
+        <span class="chip">GLP</span><span class="chip">GMP</span><span class="chip">ISO</span><span class="chip">QA / QC</span>
+        <span class="chip">Scrum</span><span class="chip">Kanban</span>
+      </div>
+    </div>
+    <div class="skill-row">
+      <h3 data-de="Sprachen" data-fr="Langues">Sprachen</h3>
+      <div>
+        <span class="chip" data-de="Deutsch C1" data-fr="Allemand C1">Deutsch C1</span>
+        <span class="chip" data-de="Französisch — Muttersprache" data-fr="Français — langue maternelle">Französisch — Muttersprache</span>
+        <span class="chip" data-de="Fon — Muttersprache" data-fr="Fon — langue maternelle">Fon — Muttersprache</span>
+        <span class="chip" data-de="Englisch — berufsbezogen (160 UE)" data-fr="Anglais — formation professionnelle (160 UE)">Englisch — berufsbezogen (160 UE)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <h2 data-de="Ausbildung und Zertifikate" data-fr="Formation et certifications">Ausbildung und Zertifikate</h2>
+  </div>
+  <div class="edu">
+    <div class="edu-row">
+      <div class="when">10/2026</div>
+      <div>
+        <h3 data-de="Data Analyst (IHK)" data-fr="Data Analyst (IHK)">Data Analyst (IHK)</h3>
+        <p data-de="IHK Akademie München und Oberbayern — Explorative Datenanalyse, Dashboards, Datenbanken, Maschinelles Lernen, Planung und Umsetzung eines Datenmodells." data-fr="IHK Akademie München und Oberbayern — analyse exploratoire, tableaux de bord, bases de données, machine learning, conception et mise en œuvre d'un modèle de données.">IHK Akademie München und Oberbayern — Explorative Datenanalyse, Dashboards, Datenbanken, Maschinelles Lernen, Planung und Umsetzung eines Datenmodells.</p>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="when">01/2026 – 05/2026</div>
+      <div>
+        <h3>Data-Process-Expert (IHK)</h3>
+        <p data-de="GPB Berlin / IHK-Projektgesellschaft Ostbrandenburg — vier Teilzertifikate: Datenschutz und -sicherheit, Prozessmanagement (mit Auszeichnung), Agiles Projektmanagement, Qualitätsmanagement."
+           data-fr="GPB Berlin / IHK-Projektgesellschaft Ostbrandenburg — quatre certificats : protection et sécurité des données, gestion des processus (avec mention), gestion de projet agile, management de la qualité.">GPB Berlin / IHK-Projektgesellschaft Ostbrandenburg — vier Teilzertifikate: Datenschutz und -sicherheit, Prozessmanagement (mit Auszeichnung), Agiles Projektmanagement, Qualitätsmanagement.</p>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="when">2024 – 04/2025</div>
+      <div>
+        <h3>Data Science Fundamentals</h3>
+        <p data-de="Masterschool, Berlin (Trägerzulassung nach AZAV) — 1.440 Unterrichtsstunden in 29 Wochen: SQL, Python, Excel, Tableau, Datenanalyse, Machine-Learning-Grundlagen, Abschlussprojekt."
+           data-fr="Masterschool, Berlin (prestataire agréé AZAV) — 1 440 heures en 29 semaines : SQL, Python, Excel, Tableau, analyse de données, bases du machine learning, projet final.">Masterschool, Berlin (Trägerzulassung nach AZAV) — 1.440 Unterrichtsstunden in 29 Wochen: SQL, Python, Excel, Tableau, Datenanalyse, Machine-Learning-Grundlagen, Abschlussprojekt.</p>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="when">2018 – 2020</div>
+      <div>
+        <h3 data-de="Berufsbezeichnung „Ingenieur“" data-fr="Titre d'« Ingenieur »">Berufsbezeichnung „Ingenieur“</h3>
+        <p data-de="Ingenieurkammer Sachsen — Bescheid vom 17.01.2020 (§ 34 SächsIngG): Eintragung in das Verzeichnis der zur Führung der Berufsbezeichnung „Ingenieur“ berechtigten Personen."
+           data-fr="Ingenieurkammer Sachsen (Ordre des ingénieurs de Saxe) — décision du 17.01.2020 (§ 34 SächsIngG) : inscription au registre des personnes autorisées à porter le titre d'« Ingenieur ».">Ingenieurkammer Sachsen — Bescheid vom 17.01.2020 (§ 34 SächsIngG): Eintragung in das Verzeichnis der zur Führung der Berufsbezeichnung „Ingenieur“ berechtigten Personen.</p>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="when">12/2012</div>
+      <div>
+        <h3 data-de="Masterforschungsdiplom — Chemie und Umwelt" data-fr="Master recherche — chimie et environnement">Masterforschungsdiplom — Chemie und Umwelt</h3>
+        <p data-de="Industrieingenieurwesen, Prädikat „sehr ehrenhaft“ — IRGIB-AFRIKA Universität, Cotonou, Benin." data-fr="Génie industriel, mention « très honorable » — Université IRGIB-AFRIKA, Cotonou, Bénin.">Industrieingenieurwesen, Prädikat „sehr ehrenhaft“ — IRGIB-AFRIKA Universität, Cotonou, Benin.</p>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="when">06/2011</div>
+      <div>
+        <h3 data-de="Masterdiplom — Expertise- und Analyseverfahren" data-fr="Master professionnel — expertises et analyses">Masterdiplom — Expertise- und Analyseverfahren</h3>
+        <p data-de="Industrieingenieurwesen, Spezialisierung Erdölchemie und Raffinierung, Prädikat „ehrenhaft“ — IRGIB-AFRIKA Universität, Cotonou, Benin." data-fr="Génie industriel, spécialité pétrochimie et raffinage, mention « honorable » — Université IRGIB-AFRIKA, Cotonou, Bénin.">Industrieingenieurwesen, Spezialisierung Erdölchemie und Raffinierung, Prädikat „ehrenhaft“ — IRGIB-AFRIKA Universität, Cotonou, Benin.</p>
+      </div>
+    </div>
+    <div class="edu-row">
+      <div class="when">2006 – 2009</div>
+      <div>
+        <h3 data-de="Bachelor Industrieingenieurwesen" data-fr="Licence en génie industriel">Bachelor Industrieingenieurwesen</h3>
+        <p data-de="IRGIB-AFRIKA Universität, Cotonou, Benin." data-fr="Université IRGIB-AFRIKA, Cotonou, Bénin.">IRGIB-AFRIKA Universität, Cotonou, Benin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="contact">
+    <h2 data-de="Kontakt" data-fr="Contact">Kontakt</h2>
+    <p data-de="Ich suche eine Position in Data Analytics, Business Intelligence, Datenmanagement oder im Qualitäts- und Prozessmanagement. Melden Sie sich gern."
+       data-fr="Je recherche un poste en data analytics, business intelligence, gestion de données ou management de la qualité et des processus. N'hésitez pas à me contacter.">Ich suche eine Position in Data Analytics, Business Intelligence, Datenmanagement oder im Qualitäts- und Prozessmanagement. Melden Sie sich gern.</p>
+    <dl class="rows">
+      <div class="crow"><dt data-de="E-Mail" data-fr="E-mail">E-Mail</dt><dd><a href="mailto:patrick.ogue@proton.me">patrick.ogue@proton.me</a></dd></div>
+      <div class="crow"><dt data-de="Telefon" data-fr="Téléphone">Telefon</dt><dd><a href="tel:+4915772688356">+49 1577 2688356</a></dd></div>
+      <div class="crow"><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/odilon-patrick-ogue/" target="_blank" rel="noopener">odilon-patrick-ogue</a></dd></div>
+      <div class="crow"><dt>GitHub</dt><dd><a href="https://github.com/PatrickOdilonOgue" target="_blank" rel="noopener">PatrickOdilonOgue</a></dd></div>
+      <div class="crow"><dt>Tableau Public</dt><dd><a href="https://public.tableau.com/app/profile/patrick.odilon.ogue/vizzes" target="_blank" rel="noopener">patrick.odilon.ogue</a></dd></div>
+      <div class="crow"><dt data-de="Standort" data-fr="Localisation">Standort</dt><dd data-de="Leipzig, Deutschland" data-fr="Leipzig, Allemagne">Leipzig, Deutschland</dd></div>
+    </dl>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-de="Patrick Odilon Ogue — Leipzig" data-fr="Patrick Odilon Ogue — Leipzig">Patrick Odilon Ogue — Leipzig</span>
+    <span data-de="Zuletzt aktualisiert: Oktober 2026" data-fr="Dernière mise à jour : octobre 2026">Zuletzt aktualisiert: Oktober 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---- career scale: a measuring rule, not a decoration ---- */
+  var W=900,H=118,y=72,x0=18,x1=882,Y0=2010,Y1=2026.75;
+  var px=function(yr){return x0+(yr-Y0)/(Y1-Y0)*(x1-x0);};
+  var g=document.getElementById('scale-g');
+  if(g){
+    var n='http://www.w3.org/2000/svg',parts=[];
+    var el=function(t,a){var e=document.createElementNS(n,t);for(var k in a)e.setAttribute(k,a[k]);return e;};
+
+    /* bands = periods of work, lab tone vs data tone */
+    var bands=[
+      {a:2010,b:2011.0,lab:1},{a:2011.17,b:2014.99,lab:1},{a:2015.5,b:2017.2,lab:1},
+      {a:2020.34,b:2023.2,lab:0},{a:2024,b:2026.75,lab:0}
+    ];
+    bands.forEach(function(b){
+      g.appendChild(el('rect',{x:px(b.a),y:y-19,width:Math.max(px(b.b)-px(b.a),3),height:19,
+        rx:1.5,'class':b.lab?'band-lab':'pin'}));
+    });
+
+    /* baseline */
+    var ax=el('line',{x1:x0,y1:y,x2:x1,y2:y,'class':'axis draw',
+      'pathLength':1,style:'stroke-dasharray:1;stroke-dashoffset:1'});
+    g.appendChild(ax);
+
+    /* ticks every year, labels every 2 */
+    for(var yr=2010;yr<=2026;yr++){
+      var major=(yr%2===0);
+      g.appendChild(el('line',{x1:px(yr),y1:y,x2:px(yr),y2:y+(major?9:5),
+        'class':major?'tick-major':'tick'}));
+      if(major){
+        var t=el('text',{x:px(yr),y:y+22,'class':'yr','text-anchor':'middle'});
+        t.textContent=yr; g.appendChild(t);
+      }
+    }
+
+    /* milestones above the rule */
+    var pins=[
+      {yr:2012,de:'Masterforschungsdiplom',fr:'Master recherche'},
+      {yr:2020,de:'Anerkennung Ingenieur',fr:'Titre d\u2019ingénieur reconnu'},
+      {yr:2025.3,de:'Data Science',fr:'Data Science'},
+      {yr:2026.7,de:'Data Analyst & DPE (IHK)',fr:'Data Analyst & DPE (IHK)'}
+    ];
+    var lane=[46,30,46,30];
+    pins.forEach(function(p,i){
+      var X=px(p.yr),ly=lane[i];
+      g.appendChild(el('line',{x1:X,y1:y-21,x2:X,y2:ly+4,'class':'tick-major'}));
+      g.appendChild(el('circle',{cx:X,cy:ly,r:3,'class':'pin'}));
+      var anchor=(X>W*0.72)?'end':(X<W*0.1?'start':'middle');
+      var t=el('text',{x:X+(anchor==='end'?-7:anchor==='start'?7:0),y:ly+3.5,
+        'class':'pin-lbl fade','text-anchor':anchor});
+      t.setAttribute('data-de',p.de); t.setAttribute('data-fr',p.fr);
+      t.textContent=p.de; g.appendChild(t);
+    });
+  }
+
+  /* ---- language switch ---- */
+  var nodes=null;
+  function apply(lang){
+    nodes=nodes||document.querySelectorAll('[data-de]');
+    for(var i=0;i<nodes.length;i++){
+      var v=nodes[i].getAttribute('data-'+lang);
+      if(v!==null) nodes[i].textContent=v;
+    }
+    document.documentElement.lang=lang;
+    var bs=document.querySelectorAll('.lang button');
+    for(var j=0;j<bs.length;j++)
+      bs[j].setAttribute('aria-pressed',String(bs[j].getAttribute('data-lang')===lang));
+    try{localStorage.setItem('ogue-lang',lang);}catch(e){}
+  }
+  var saved='de';
+  try{var s=localStorage.getItem('ogue-lang'); if(s==='fr'||s==='de') saved=s;}catch(e){}
+  if(saved==='de'&&!/^de/i.test(navigator.language||'')&&/^fr/i.test(navigator.language||'')){
+    try{if(!localStorage.getItem('ogue-lang')) saved='fr';}catch(e){saved='fr';}
+  }
+  apply(saved);
+  document.querySelector('.lang').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-lang]'); if(b) apply(b.getAttribute('data-lang'));
+  });
+})();
+</script>
+</body>
+</html>
